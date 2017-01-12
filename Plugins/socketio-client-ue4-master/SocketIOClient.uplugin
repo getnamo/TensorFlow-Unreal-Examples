@@ -1,0 +1,40 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "0.4.7",
+	"FriendlyName": "Socket.IO Client",
+	"Description": "Real-time networking library Socket.IO Client usable from blueprints and c++.",
+	"Category": "Networking",
+	"CreatedBy": "Getnamo",
+	"CreatedByURL": "http://getnamo.com",
+	"DocsURL": "https://github.com/getnamo/socketio-client-ue4",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"EnabledByDefault": false,
+	"CanContainContent": false,
+	"IsBetaVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "SocketIOClient",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Win32",
+				"Linux",
+				"Mac"
+			]
+		},
+		{
+			"Name": "SIOJson",
+			"Type": "Runtime",
+			"LoadingPhase": "PreDefault"
+		},
+		{
+			"Name": "SIOJEditorPlugin",
+			"Type": "Developer",
+			"LoadingPhase": "Default"
+		}
+	]
+}

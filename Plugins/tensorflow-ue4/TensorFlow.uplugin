@@ -1,0 +1,27 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "0.1.0",
+	"FriendlyName": "TensorFlow",
+	"Description": "",
+	"Category": "Computing",
+	"CreatedBy": "Getnamo",
+	"CreatedByURL": "http://www.getnamo.com",
+	"DocsURL": "https://github.com/getnamo/tensorflow-ue4",
+	"MarketplaceURL": "",
+	"SupportURL": "https://github.com/getnamo/tensorflow-ue4/issues",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "TensorFlow",
+			"Type": "Developer",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Win32"
+			]
+		}
+	]
+}
