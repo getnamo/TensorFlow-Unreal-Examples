@@ -151,6 +151,11 @@ function tool_pencil () {
 
 		var point = {'x': ev._x, 'y': ev._y};
 		drawing.strokes[drawing.strokes.length-1].push(point);
+
+		if(drawingTimeout != undefined){	//restart on draw start
+			clearTimeout(drawingTimeout);
+		}
+		drawingTimeout = setTimeout(drawingComplete, 1000);
 	  }
 	};
 	this.mousemove = this.touchmove;
@@ -165,6 +170,8 @@ function tool_pencil () {
 	  	}
 	};
 	this.mouseup = this.touchend;
+	this.touchleave = this.touchend;
+	this.touchcancel = this.touchend;
 }
 
 function evt_lstr(e) {
@@ -175,6 +182,8 @@ function evt_lstr(e) {
 		tool.setXY(e);
 		func(e);
 	}
+
+	e.preventDefault();
 	
 	//log our stuff
 	/*if(e.type != "mousemove" && e.type != "touchmove")
@@ -188,9 +197,8 @@ function evt_lstr(e) {
 	if(d2.children.length > 10){
 	d2.removeChild(d2.children[0]);
 	}
-
-	//console.log(e);
-	}*/
+	}
+	*/
 }
 var d1 = document.getElementById("d1"), d2 = document.getElementById("d2");["mouseup","mousedown","mousemove","mouseout","click","dblclick","touchstart","touchend",
 		 "touchleave","touchmove","touchcancel"].forEach(function(te) {
@@ -200,5 +208,6 @@ var d1 = document.getElementById("d1"), d2 = document.getElementById("d2");["mou
 document.getElementById("clr").addEventListener("click", function(e) {
 	d2.innerHTML = "";
 	e.preventDefault();
-	clearCanvas();
+	//clearCanvas();
+	drawingComplete();
 });
