@@ -53,12 +53,12 @@ function drawingComplete()
 		}
 	}
 
-	var border = 20;
+	var border = 40;
 	min.x = min.x - border;
-	min.y = min.y - border;
+	min.y = min.y - border - 10;
 
 	max.x = max.x + border;
-	max.y = max.y + border;
+	max.y = max.y + border + 10;
 
 	drawing.min = min;
 	drawing.max = max;
