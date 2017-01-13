@@ -7,5 +7,7 @@ may not be completely working out of the box just yet
 depends on: 
 
 https://github.com/getnamo/tensorflow-ue4
-ttps://github.com/getnamo/UnrealEnginePython fork and
+
+https://github.com/getnamo/UnrealEnginePython fork and
+
 https://github.com/getnamo/socketio-client-ue4
