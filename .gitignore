@@ -61,3 +61,6 @@ Intermediate/*
 # Cache files for the editor to use
 DerivedDataCache/*
 TensorflowWork.VC.db
+
+#server node modules
+Server/node_modules
