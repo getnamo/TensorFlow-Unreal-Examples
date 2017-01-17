@@ -65,8 +65,4 @@ TensorflowWork.VC.db
 #server node modules
 Server/node_modules
 
-#plugin intermediates
-Plugins/socketio-client-ue4-master/Intermediate
-Plugins/tensorflow-ue4/Intermediate
-Plugins/UnrealEnginePython/Intermediate
 *.pyc
