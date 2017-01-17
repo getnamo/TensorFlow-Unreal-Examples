@@ -16,7 +16,7 @@ FLAGS = None
 def main(data_dir):
 	mnist = input_data.read_data_sets(data_dir, one_hot=True)
 
-	ue.log("hi there")
+	ue.log("starting mnist simple")
 
 	# Create the model
 	x = tf.placeholder(tf.float32, [None, 784])

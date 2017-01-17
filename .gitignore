@@ -69,3 +69,4 @@ Server/node_modules
 Plugins/socketio-client-ue4-master/Intermediate
 Plugins/tensorflow-ue4/Intermediate
 Plugins/UnrealEnginePython/Intermediate
+*.pyc
