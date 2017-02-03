@@ -10,15 +10,12 @@ ue.exec('mnistKeras.py')
 from __future__ import print_function
 import numpy as np
 
-class Logger(object):
-    def __init__(self, filename="Default.log"):
-        self.terminal = sys.stdout
-        #self.log = open(filename, "a")
+class Logwrapper(object):
+    def __init__(self):
+        self.terminal = ue.log
 
     def write(self, message):
         ue.log(message)
-        #self.terminal.write(message)
-        #self.log.write(message)
 
     def flush(self):
         ue.log("")
@@ -28,8 +25,9 @@ import sys
 
 import _thread as thread
 
-sys.stdout = Logger("mnistlog.txt")
-sys.stderr = Logger("mnisterr.txt")
+#wrap default logs so we get all print()
+sys.stdout = Logwrapper()
+sys.stderr = Logwrapper()
 
 from keras.datasets import mnist
 from keras.models import Sequential
@@ -40,8 +38,6 @@ from keras import backend as K
 
 def train():
     print("Training started...")
-
-
 
     np.random.seed(1337)  # for reproducibility
     batch_size = 128
@@ -103,11 +99,15 @@ def train():
                   optimizer='adadelta',
                   metrics=['accuracy'])
 
-    model.fit(X_train, Y_train, batch_size=batch_size, nb_epoch=nb_epoch,
-              verbose=1, validation_data=(X_test, Y_test))
-    score = model.evaluate(X_test, Y_test, verbose=0)
-    ue.log('Test score:' + str(score[0]))
-    ue.log('Test accuracy:' + str(score[1]))
+    print(X_train)
+
+    print(Y_train)
+
+    #model.fit(X_train, Y_train, batch_size=batch_size, nb_epoch=nb_epoch,
+    #          verbose=1, validation_data=(X_test, Y_test))
+    #score = model.evaluate(X_test, Y_test, verbose=0)
+    #ue.log('Test score:' + str(score[0]))
+    #ue.log('Test accuracy:' + str(score[1]))
 
 #start thread
 thread.start_new_thread(train, ())
