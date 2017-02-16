@@ -12,9 +12,6 @@ from tensorflow.examples.tutorials.mnist import input_data
 import tensorflow as tf
 import unreal_engine as ue
 
-FLAGS = None
-sess = None
-
 def main(data_dir):
 	mnist = input_data.read_data_sets(data_dir, one_hot=True)
 
@@ -94,15 +91,6 @@ def runJsonInput(stored, jsonInput):
 	jsonInput['prediction'] = index
 
 	return jsonInput
-
-
-if __name__ == '__main__':
-	parser = argparse.ArgumentParser()
-	parser.add_argument('--data_dir', type=str, default='/tmp/tensorflow/mnist/input_data',
-					  help='Directory for storing input data')
-	FLAGS, unparsed = parser.parse_known_args()
-	tf.app.run(main=main, argv=[sys.argv[0]] + unparsed)
-
 
 def train():
 	data_dir = '/tmp/tensorflow/mnist/input_data'
