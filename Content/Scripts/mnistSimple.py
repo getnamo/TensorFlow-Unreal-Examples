@@ -57,10 +57,13 @@ def main(data_dir):
 	#return trained model
 	stored = {'x':x, 'y':y, 'W':W,'b':b, 'session':sess}
 
-	ue.log('trained x: ' + str(stored['x']))
-	ue.log('trained y: ' + str(stored['y']))
-	ue.log('trained W: ' + str(stored['W']))
-	ue.log('trained b: ' + str(stored['b']))
+	#ue.log('trained x: ' + str(stored['x']))
+	#ue.log('trained y: ' + str(stored['y']))
+	#ue.log('trained W: ' + str(stored['W']))
+	#ue.log('trained b: ' + str(stored['b']))
+
+	#store optional summary information
+	stored['summary'] = {'x':str(x), 'y':str(y), 'W':str(W), 'b':str(b)}
 
 	return stored
 
@@ -95,4 +98,3 @@ def runJsonInput(stored, jsonInput):
 def train():
 	data_dir = '/tmp/tensorflow/mnist/input_data'
 	return main(data_dir)
-	#return 'got som results'
