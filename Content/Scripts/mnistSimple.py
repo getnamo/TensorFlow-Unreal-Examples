@@ -95,6 +95,7 @@ def runJsonInput(stored, jsonInput):
 
 	return jsonInput
 
+#expected api: no params forwarded for training? TBC
 def train():
 	data_dir = '/tmp/tensorflow/mnist/input_data'
 	return main(data_dir)

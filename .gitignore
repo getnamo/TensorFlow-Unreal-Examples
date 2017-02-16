@@ -66,3 +66,4 @@ TensorflowWork.VC.db
 Server/node_modules
 
 *.pyc
+Releases/*
