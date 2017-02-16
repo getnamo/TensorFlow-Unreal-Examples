@@ -4,6 +4,7 @@ from __future__ import print_function
 
 import argparse
 import sys
+import operator
 
 # Import data
 from tensorflow.examples.tutorials.mnist import input_data
@@ -12,6 +13,7 @@ import tensorflow as tf
 import unreal_engine as ue
 
 FLAGS = None
+sess = None
 
 def main(data_dir):
 	mnist = input_data.read_data_sets(data_dir, one_hot=True)
@@ -55,8 +57,44 @@ def main(data_dir):
 									  y_: mnist.test.labels})
 	ue.log('final training accuracy: ' + str(finalAccuracy))
 	
-	trained = {'x':x, 'y':y, 'W':W,'b':b, 'sess':sess}
-	return trained
+	#return trained model
+	stored = {'x':x, 'y':y, 'W':W,'b':b, 'session':sess}
+
+	ue.log('trained x: ' + str(stored['x']))
+	ue.log('trained y: ' + str(stored['y']))
+	ue.log('trained W: ' + str(stored['W']))
+	ue.log('trained b: ' + str(stored['b']))
+
+	return stored
+
+def runModelWithInput(session, model, input_dict):
+	return session.run(model['y'], input_dict)
+
+#expected api: storedModel and session, json inputs
+def runJsonInput(stored, jsonInput):
+	#expect an image struct in json format
+	pixelarray = jsonInput['pixels']
+	ue.log('image len: ' + str(len(pixelarray)))
+
+	#embedd the input image pixels as 'x'
+	feed_dict = {stored['x']: [pixelarray]}
+
+	ue.log(feed_dict)
+
+	#run our model
+	result = runModelWithInput(stored['session'], stored, feed_dict)
+	ue.log('result: ' + str(len(pixelarray)))
+
+	#convert our raw result to a prediction
+	index, value = max(enumerate(result[0]), key=operator.itemgetter(1))
+
+	ue.log('max: ' + str(value) + 'at: ' + str(index))
+
+	#set the prediction result in our json
+	jsonInput['prediction'] = index
+
+	return jsonInput
+
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
