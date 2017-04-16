@@ -1,0 +1,9 @@
+{
+	"name": "tf-mnist-example",
+	"version": "0.0.1",
+	"description": "sending drawings to ue4",
+	"dependencies": {
+		"express": "4.10.2",
+		"socket.io": "1.4.0"
+	}
+}
