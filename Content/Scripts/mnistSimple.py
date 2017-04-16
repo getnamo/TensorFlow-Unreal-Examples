@@ -41,7 +41,7 @@ def main(data_dir):
 	sess = tf.InteractiveSession()
 	# Train
 	tf.global_variables_initializer().run()
-	for i in range(2000):
+	for i in range(1000):
 		batch_xs, batch_ys = mnist.train.next_batch(100)
 		sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
 		if i % 100 == 0: 
