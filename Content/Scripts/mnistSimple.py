@@ -79,7 +79,7 @@ def runJsonInput(stored, jsonInput):
 	#embedd the input image pixels as 'x'
 	feed_dict = {stored['x']: [pixelarray]}
 
-	ue.log(feed_dict)
+	#ue.log(feed_dict)
 
 	#run our model
 	result = runModelWithInput(stored['session'], stored, feed_dict)
