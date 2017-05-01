@@ -1,5 +1,8 @@
 # tensorflow-ue4-examples
 
+[![GitHub release](https://img.shields.io/github/release/getnamo/tensorflow-ue4-examples.svg)](https://github.com/getnamo/tensorflow-ue4-examples/releases)
+[![Github All Releases](https://img.shields.io/github/downloads/getnamo/tensorflow-ue4-examples/total.svg)](https://github.com/getnamo/tensorflow-ue4-examples/releases)
+
 Example content project for [tensorflow-ue4](https://github.com/getnamo/tensorflow-ue4) plugin. Main repository tracking changes required across all dependencies to make tensorflow work well with UE4.
 
 Currently in very early development, see issues for progress update. Eventually drag and drop released will be available.
