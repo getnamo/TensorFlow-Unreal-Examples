@@ -5,6 +5,8 @@ import tensorflow as tf
 import unreal_engine as ue
 from TFPluginAPI import TFPluginAPI
 
+import operator
+
 class MnistSimple(TFPluginAPI):
 
 	#expected api: setup your model for training
