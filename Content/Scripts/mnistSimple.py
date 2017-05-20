@@ -1,3 +1,6 @@
+#Converted to ue4 use from: https://www.tensorflow.org/get_started/mnist/beginners
+#mnist_softmax.py: https://github.com/tensorflow/tensorflow/blob/r1.1/tensorflow/examples/tutorials/mnist/mnist_softmax.py
+
 # Import data
 from tensorflow.examples.tutorials.mnist import input_data
 
@@ -11,7 +14,7 @@ class MnistSimple(TFPluginAPI):
 
 	#expected api: setup your model for training
 	def setup(self):
-		#get our session and graph from super class
+		#We do all of our setup in training for simplicity
 		pass
 
 	#expected api: storedModel and session, json inputs
