@@ -3,13 +3,24 @@
 [![GitHub release](https://img.shields.io/github/release/getnamo/tensorflow-ue4-examples/all.svg)](https://github.com/getnamo/tensorflow-ue4-examples/releases)
 [![Github All Releases](https://img.shields.io/github/downloads/getnamo/tensorflow-ue4-examples/total.svg)](https://github.com/getnamo/tensorflow-ue4-examples/releases)
 
-Example content project for [tensorflow-ue4](https://github.com/getnamo/tensorflow-ue4) plugin. Main repository tracking changes required across all dependencies to make tensorflow work well with UE4.
+Example content project for [tensorflow-ue4](https://github.com/getnamo/tensorflow-ue4) plugin.
 
-Currently in very early development, see issues for progress update. Eventually drag and drop released will be available.
+This repository also tracks changes required across all dependencies to make tensorflow work well with UE4.
+
+Currently in early development, see [issues](https://github.com/getnamo/tensorflow-ue4-examples/issues) for progress and bug reports.
 
 ## Examples
 
-Mnist recognition - Working but awaiting rebuild on api
+### Mnist recognition
+
+Map is found under _Content/ExampleAssets/Maps/Mnist.umap_ : https://github.com/getnamo/tensorflow-ue4-examples/blob/master/Content/ExampleAssets/Maps/Mnist.umap
+
+Example uses
+[todo fill these]
+
+## Tensorflow API
+
+See https://github.com/getnamo/tensorflow-ue4 for latest documentation.
 
 ## Dependencies
 
