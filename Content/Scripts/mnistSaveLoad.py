@@ -6,7 +6,6 @@ from tensorflow.examples.tutorials.mnist import input_data
 
 import tensorflow as tf
 import unreal_engine as ue
-import upycmd as cmd
 import sys
 from TFPluginAPI import TFPluginAPI
 
@@ -17,10 +16,11 @@ class MnistSimple(TFPluginAPI):
 	#expected api: setup your model for training
 	def setup(self):
 		#Setup our paths
-		self.scripts_path = cmd.PythonProjectScriptPath()
-		self.data_dir = cmd.AsAbsPath(self.scripts_path + '/dataset/mnist/')
-		self.model_directory = cmd.AsAbsPath(self.scripts_path + "/model/mnistSimple")
-		self.model_path = cmd.AsAbsPath(self.model_directory + "/model.ckpt")
+		self.scripts_path = ue.get_content_dir() + "/Scripts/"
+
+		self.data_dir = self.scripts_path + '/dataset/mnist/'
+		self.model_directory = self.scripts_path + "/model/mnistSimple"
+		self.model_path = self.model_directory + "/model.ckpt"
 
 		#startup a session and try to obtain latest save
 		self.sess = tf.InteractiveSession()
@@ -88,6 +88,8 @@ class MnistSimple(TFPluginAPI):
 
 		#train model if we didn't find a trained model
 		if not (self.model_loaded):
+			ue.log('No saved data found, starting training...')
+
 			with self.sess.as_default():
 				with self.graph.as_default():
 					#we just need to know our x and y, W and b are embedded in the y operation
@@ -99,7 +101,7 @@ class MnistSimple(TFPluginAPI):
 					cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=y_, logits=y))
 					train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
 
-					ue.log('No saved data found, starting training...')
+					#read in mnist data to use to feed x during training
 					mnist = input_data.read_data_sets(self.data_dir, one_hot=True)
 					tf.global_variables_initializer().run()
 
