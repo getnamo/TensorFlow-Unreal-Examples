@@ -56,7 +56,7 @@ class MnistSimple(TFPluginAPI):
 			self.model = {'x':x, 'y':y, 'W':W,'b':b}
 
 	#expected api: storedModel and session, json inputs
-	def onRunJsonInput(self, jsonInput):
+	def onJsonInput(self, jsonInput):
 		#expect an image struct in json format
 		pixelarray = jsonInput['pixels']
 		ue.log('image len: ' + str(len(pixelarray)))
@@ -77,7 +77,7 @@ class MnistSimple(TFPluginAPI):
 		return jsonInput
 
 	#expected api: no params forwarded for training? TBC
-	def onTrain(self):
+	def onBeginTraining(self):
 
 		ue.log("mnist simple train")
 
@@ -102,6 +102,11 @@ class MnistSimple(TFPluginAPI):
 					mnist = input_data.read_data_sets(self.data_dir, one_hot=True)
 					tf.global_variables_initializer().run()
 
+					#pre-fill our callEvent data to minimize setting
+					jsonPixels = {}
+					size = {'x':28, 'y':28}
+					jsonPixels['size'] = size
+
 					training_range = 1000
 					# Train
 					for i in range(training_range):
@@ -110,6 +115,13 @@ class MnistSimple(TFPluginAPI):
 						self.sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
 						if i % 100 == 0:
 							ue.log(i)
+							
+							#send two pictures from our dataset per batch
+							jsonPixels['pixels'] = batch_xs[0].tolist()
+							self.callEvent('PixelEvent', jsonPixels, True)
+							jsonPixels['pixels'] = batch_xs[49].tolist()
+							self.callEvent('PixelEvent', jsonPixels, True)
+
 							if(self.shouldstop):
 								ue.log('early break')
 								break 

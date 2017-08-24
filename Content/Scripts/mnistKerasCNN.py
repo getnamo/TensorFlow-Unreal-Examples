@@ -40,7 +40,7 @@ class MnistKeras(TFPluginAPI):
 				self.model.stop_training = True
 
 	#expected api: setup your model for training
-	def setup(self):
+	def onSetup(self):
 		#setup or load your model and pass it into stored
 		
 		#Usually store session, graph, and model if using keras
@@ -50,7 +50,7 @@ class MnistKeras(TFPluginAPI):
 		self.stopcallback = self.StopCallback(self)
 
 	#expected api: storedModel and session, json inputs
-	def runJsonInput(self, jsonInput):
+	def onJsonInput(self, jsonInput):
 		#build the result object
 		result = {'prediction':-1}
 
@@ -88,7 +88,7 @@ class MnistKeras(TFPluginAPI):
 		return result
 
 	#expected api: no params forwarded for training? TBC
-	def train(self):
+	def onBeginTraining(self):
 		ue.log("starting mnist keras cnn training")
 
 		model_file_name = "mnistKerasCNN"

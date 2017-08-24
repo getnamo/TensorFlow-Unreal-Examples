@@ -11,14 +11,9 @@ from TFPluginAPI import TFPluginAPI
 import operator
 
 class MnistSimple(TFPluginAPI):
-
-	#expected api: setup your model for training
-	def setup(self):
-		#We do all of our setup in training for simplicity
-		pass
-
+	
 	#expected api: storedModel and session, json inputs
-	def runJsonInput(self, jsonInput):
+	def onJsonInput(self, jsonInput):
 		#expect an image struct in json format
 		pixelarray = jsonInput['pixels']
 		ue.log('image len: ' + str(len(pixelarray)))
@@ -39,7 +34,7 @@ class MnistSimple(TFPluginAPI):
 		return jsonInput
 
 	#expected api: no params forwarded for training? TBC
-	def train(self):
+	def onBeginTraining(self):
 
 		ue.log("starting mnist simple training")
 
