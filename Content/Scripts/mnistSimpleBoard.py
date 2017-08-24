@@ -27,11 +27,11 @@ class MnistSimpleBoard(TFPluginAPI):
 
 
 	#expected api: setup your model for training
-	def setup(self):
+	def onSetup(self):
 		pass
 
 	#expected api: storedModel and session, json inputs
-	def runJsonInput(self, jsonInput):
+	def onJsonInput(self, jsonInput):
 		#expect an image struct in json format
 		pixelarray = jsonInput['pixels']
 		ue.log('image len: ' + str(len(pixelarray)))
@@ -52,7 +52,7 @@ class MnistSimpleBoard(TFPluginAPI):
 		return jsonInput
 
 	#expected api: no params forwarded for training? TBC
-	def train(self):
+	def onBeginTraining(self):
 
 		data_dir = '/tmp/tensorflow/mnist/input_data'
 

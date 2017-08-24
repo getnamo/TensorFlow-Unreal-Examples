@@ -67,3 +67,7 @@ Server/node_modules
 
 *.pyc
 Releases/*
+
+# trained models and downloaded dbs, ignore them for now
+Content/Scripts/model
+Content/Scripts/dataset
