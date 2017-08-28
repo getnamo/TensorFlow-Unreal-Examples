@@ -33,7 +33,7 @@ class MnistKeras(TFPluginAPI):
 			self.losses = []
 
 		def on_batch_end(self, batch, logs={}):
-			if(self.outer.shouldstop):
+			if(self.outer.shouldStop):
 				#notify on first call
 				if not (self.model.stop_training):
 					ue.log('Early stop called!')

@@ -38,9 +38,10 @@ class MnistSimple(TFPluginAPI):
 
 		ue.log("starting mnist simple training")
 
-		data_dir = '/tmp/tensorflow/mnist/input_data'
+		self.scripts_path = ue.get_content_dir() + "Scripts"
+		self.data_dir = self.scripts_path + '/dataset/mnist'
 
-		mnist = input_data.read_data_sets(data_dir, one_hot=True)
+		mnist = input_data.read_data_sets(self.data_dir, one_hot=True)
 
 		# Create the model
 		x = tf.placeholder(tf.float32, [None, 784])
@@ -73,7 +74,7 @@ class MnistSimple(TFPluginAPI):
 			self.sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
 			if i % 100 == 0:
 				ue.log(i)
-				if(self.shouldstop):
+				if(self.shouldStop):
 					ue.log('early break')
 					break 
 

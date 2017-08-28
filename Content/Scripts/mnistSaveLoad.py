@@ -11,14 +11,14 @@ from TFPluginAPI import TFPluginAPI
 
 import operator
 
-class MnistSimple(TFPluginAPI):
+class MnistSaveLoad(TFPluginAPI):
 
 	#expected api: setup your model for training
 	def onSetup(self):
 		#Setup our paths
-		self.scripts_path = ue.get_content_dir() + "/Scripts/"
+		self.scripts_path = ue.get_content_dir() + "Scripts"
 
-		self.data_dir = self.scripts_path + '/dataset/mnist/'
+		self.data_dir = self.scripts_path + '/dataset/mnist'
 		self.model_directory = self.scripts_path + "/model/mnistSimple"
 		self.model_path = self.model_directory + "/model.ckpt"
 
@@ -45,9 +45,10 @@ class MnistSimple(TFPluginAPI):
 				W = tf.get_variable('W', [784, 10], initializer=tf.zeros_initializer)
 				b = tf.get_variable('b', [10], initializer=tf.zeros_initializer)
 
-				self.saver = tf.train.Saver()
-				print("Initializing saver variables")
+				print("no model saved, initializing variables")
 
+			self.saver = tf.train.Saver()
+				
 			#The rest of the operations are the same
 			x = tf.placeholder(tf.float32, [None, 784])
 			y = tf.matmul(x, W) + b
@@ -55,8 +56,8 @@ class MnistSimple(TFPluginAPI):
 			#save the model model
 			self.model = {'x':x, 'y':y, 'W':W,'b':b}
 
-	#expected api: storedModel and session, json inputs
-	def onRunJsonInput(self, jsonInput):
+	#expected optional api: parse input object and return a result object, which will be converted to json for UE4
+	def onJsonInput(self, jsonInput):
 		#expect an image struct in json format
 		pixelarray = jsonInput['pixels']
 		ue.log('image len: ' + str(len(pixelarray)))
@@ -76,15 +77,15 @@ class MnistSimple(TFPluginAPI):
 
 		return jsonInput
 
-	#expected api: no params forwarded for training? TBC
-	def onTrain(self):
+	#expected optional api: start training your network
+	def onBeginTraining(self):
 
 		ue.log("mnist simple train")
 
 		ue.log('Save/Load Variation, do we need to train?')
 
-		#train model if we didn't find a trained model
-		if not (self.model_loaded):
+		#train model if we didn't find a trained model or we're forcing retraining
+		if (not self.model_loaded) or (self.shouldRetrain):
 			ue.log('No saved data found, starting training...')
 
 			with self.sess.as_default():
@@ -110,7 +111,7 @@ class MnistSimple(TFPluginAPI):
 						self.sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
 						if i % 100 == 0:
 							ue.log(i)
-							if(self.shouldstop):
+							if(self.shouldStop):
 								ue.log('early break')
 								break 
 
@@ -144,4 +145,4 @@ class MnistSimple(TFPluginAPI):
 #required function to get our api
 def getApi():
 	#return CLASSNAME.getInstance()
-	return MnistSimple.getInstance()
+	return MnistSaveLoad.getInstance()

@@ -39,7 +39,7 @@ class ExampleAPI(TFPluginAPI):
 		#...
 
 		#inside your training loop check if we should stop early
-		#if(this.shouldstop):
+		#if(this.shouldStop):
 		#	break
 		pass
 
