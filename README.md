@@ -40,9 +40,13 @@ See available classifier models provided here: https://github.com/getnamo/tensor
 
 You can force retraining by either changing *ConnectedTFMnistActor->ForceRetrain* to true or deleting the model found under *Content/Scripts/model/mnistSimple*
 
-### Basic Tensorflow Addition & Subtraction Math
+### Basic Tensorflow Example - Addition & Subtraction of Float Arrays
 
-See https://github.com/getnamo/tensorflow-ue4-examples/blob/master/Content/Scripts/ExampleAPI.py.
+Map is found under _Content/ExampleAssets/Maps/Basic.umap_ : https://github.com/getnamo/tensorflow-ue4-examples/blob/master/Content/ExampleAssets/Maps/Basic.umap
+
+![basic example](http://i.imgur.com/I50IQ8h.png)
+
+Uses *TFAddExampleActor* to encapsulate [*addExample.py*](https://github.com/getnamo/tensorflow-ue4-examples/blob/master/Content/Scripts/addExample.py). This is a bare bones basic example to use tensorflow to add or subtract float array data. Press 'F' to send current custom struct data, press 'G' to change operation via custom function call. Change your default *ExampleStruct* *a* and *b* arrays to change the input sent to the tensorflow python script.
 
 ### Other Examples
 If you have other examples you want to implement, consider contributing or post an [issue](https://github.com/getnamo/tensorflow-ue4-examples/issues) with a suggestion.
