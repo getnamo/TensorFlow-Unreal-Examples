@@ -36,7 +36,9 @@ If you want to try other mnist classifiers models, change your *ConnectedTFMnist
 See available classifier models provided here: https://github.com/getnamo/tensorflow-ue4-examples/tree/master/Content/Scripts
 
 #### Saving / Loading Models
-*mnistSaveLoad* python script will train on the first run and then save the trained model. Each subsequent run will used that trained model, skipping training time. You can also copy and paste this model to a new project and it will also skip the training. Use this as a guide to link your own pre-trained network for your own use cases.
+[*mnistSaveLoad*](https://github.com/getnamo/tensorflow-ue4-examples/blob/master/Content/Scripts/mnistSaveLoad.py) python script will train on the first run and then save the trained model. Each subsequent run will used that trained model, skipping training time. You can also copy and paste this model to a new project and it will also skip the training. Use this as a guide to link your own pre-trained network for your own use cases.
+
+You can force retraining by either changing *ConnectedTFMnistActor->ForceRetrain* to true or deleting the model found under *Content/Scripts/model/mnistSimple*
 
 ### Basic Tensorflow Addition & Subtraction Math
 
