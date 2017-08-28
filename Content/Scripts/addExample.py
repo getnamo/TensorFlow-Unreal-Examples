@@ -25,7 +25,7 @@ class ExampleAPI(TFPluginAPI):
 
 		rawResult = self.sess.run(self.c,feed_dict)
 
-		return {'answer':str(rawResult)}
+		return {'c':rawResult.tolist()}
 
 	#custom function to change the op
 	def changeOperation(self, type):
