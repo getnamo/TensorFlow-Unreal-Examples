@@ -4,6 +4,9 @@ Gets to 99.25% test accuracy after 12 epochs
 16 seconds per epoch on a GRID K520 GPU.
 '''
 
+#converted for ue4 use from
+#https://github.com/fchollet/keras/blob/master/examples/mnist_cnn.py
+
 import json
 from pathlib import Path
 
