@@ -69,5 +69,6 @@ Server/node_modules
 Releases/*
 
 # trained models and downloaded dbs, ignore them for now
-Content/Scripts/model
+Content/Scripts/model/*
+!Content/Scripts/model/.gitkeep
 Content/Scripts/dataset
