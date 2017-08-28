@@ -114,7 +114,7 @@ class MnistSimpleBoard(TFPluginAPI):
 			if i % 50 == 0:
 				writer.add_summary(summary, i)
 				ue.log(i)
-				if(self.shouldstop):
+				if(self.shouldStop):
 					break
 			else:
 				sess.run([train_step], feed_dict={x: batch_xs, y_: batch_ys})
