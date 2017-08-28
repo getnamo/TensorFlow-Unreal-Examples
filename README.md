@@ -26,6 +26,8 @@ Map is found under _Content/ExampleAssets/Maps/Mnist.umap_ : https://github.com/
 
 [![mnist spawn samples](http://i.imgur.com/kvsLXvF.gif)](https://github.com/getnamo/tensorflow-ue4-examples/blob/master/Content/Scripts/mnistSpawnSamples.py)
 
+*Default mnist example script: mnistSpawnSamples.py*
+
 On map launch you'll have a basic example ready for play in editor. It should automatically train a really basic network when you hit play and then be ready to use in a few seconds. You can then press 'F' to send e.g. image of a 2 to predict. Press 0-9 numbers on your keyboard to change the input, press F again to send this updated input to classifier. Note that this is a very basic classifier and it will struggle to classify digits above 4 in the current setup.
 
 If the example is using a *ConnectedTFMnistActor*, you can also go to http://qnova.io/e/mnist on your phone or browser after your training is complete. You can then draw shapes in your browser and it will send those drawn shapes to your UE4 editor for classification. Note that only the latest connected UE4 editor will receive these drawings, if it's not working just restart your play in editor to become the latest editor that connected. You can also host your own server with the node.js server module found under: https://github.com/getnamo/tensorflow-ue4-examples/tree/master/ServerExamples. If you want to connect to your own server, change the *ConnectedTFMnistActor->SocketIOClient->Address and Port* variable to e.g. localhost:3000.
@@ -36,7 +38,7 @@ If you want to try other mnist classifiers models, change your *ConnectedTFMnist
 See available classifier models provided here: https://github.com/getnamo/tensorflow-ue4-examples/tree/master/Content/Scripts
 
 #### Saving / Loading Models
-[*mnistSaveLoad*](https://github.com/getnamo/tensorflow-ue4-examples/blob/master/Content/Scripts/mnistSaveLoad.py) python script will train on the first run and then save the trained model. Each subsequent run will used that trained model, skipping training time. You can also copy and paste this model to a new project and it will also skip the training. Use this as a guide to link your own pre-trained network for your own use cases.
+[*mnistSaveLoad*](https://github.com/getnamo/tensorflow-ue4-examples/blob/master/Content/Scripts/mnistSaveLoad.py) python script will train on the first run and then save the trained model. Each subsequent run will used that trained model, skipping training time. You can also copy and paste this saved model to a new project and then when using a compatible script, it will also skip the training. Use this as a guide to link your own pre-trained network for your own use cases.
 
 You can force retraining by either changing *ConnectedTFMnistActor->ForceRetrain* to true or deleting the model found under *Content/Scripts/model/mnistSimple*
 
