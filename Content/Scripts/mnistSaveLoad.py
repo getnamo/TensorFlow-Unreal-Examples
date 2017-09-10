@@ -53,7 +53,7 @@ class MnistSaveLoad(TFPluginAPI):
 			x = tf.placeholder(tf.float32, [None, 784])
 			y = tf.matmul(x, W) + b
 
-			#save the model model
+			#store the model in a class instance variable to easily reference in another function
 			self.model = {'x':x, 'y':y, 'W':W,'b':b}
 
 	#expected optional api: parse input object and return a result object, which will be converted to json for UE4
@@ -62,12 +62,13 @@ class MnistSaveLoad(TFPluginAPI):
 		pixelarray = jsonInput['pixels']
 		ue.log('image len: ' + str(len(pixelarray)))
 
-		#embedd the input image pixels as 'x'
+		#map the input image pixels to the 'x' placeholder
 		feed_dict = {self.model['x']: [pixelarray]}
 
+		#run the input feed_dict through the model 'y' and obtain a result
 		result = self.sess.run(self.model['y'], feed_dict)
 
-		#convert our raw result to a prediction
+		#convert our raw result to a prediction by picking the highest value from 1D result tensor
 		index, value = max(enumerate(result[0]), key=operator.itemgetter(1))
 
 		ue.log('max: ' + str(value) + 'at: ' + str(index))
@@ -131,14 +132,16 @@ class MnistSaveLoad(TFPluginAPI):
 					self.model['x'] = x
 					self.model['y'] = y
 
-					#store optional summary information
+					#Optional: append summary information
 					self.summary = {'x':str(x), 'y':str(y), 'W':str(self.model['W']), 'b':str(self.model['b'])}
 
 		else:
 			ue.log('Model already trained, skipping.')
+			
+			#Optional: store an empty summary variable
 			self.summary = {}
 		
-
+		#Optional: append a summary object to our self.stored that we return on from the training function
 		self.stored['summary'] = self.summary
 		return self.stored
 
