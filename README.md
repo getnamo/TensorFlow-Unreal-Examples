@@ -43,7 +43,7 @@ If you want to try other mnist classifiers models, change your *ConnectedTFMnist
 See available classifier models provided here: https://github.com/getnamo/tensorflow-ue4-examples/tree/master/Content/Scripts
 
 #### Saving / Loading Models
-[*mnistSaveLoad*](https://github.com/getnamo/tensorflow-ue4-examples/blob/master/Content/Scripts/mnistSaveLoad.py) python script will train on the first run and then save the trained model. Each subsequent run will used that trained model, skipping training time. You can also copy and paste this saved model to a new project and then when using a compatible script, it will also skip the training. Use this as a guide to link your own pre-trained network for your own use cases.
+[*mnistSaveLoad*](https://github.com/getnamo/tensorflow-ue4-examples/blob/master/Content/Scripts/mnistSaveLoad.py) python script will train on the first run and then save the trained model. Each subsequent run will then use that trained model, skipping training. You can also copy and paste this saved model to a new project and then when used in a compatible script, it will also skip the training. Use this as a guide to link your own pre-trained network for your own use cases.
 
 You can force retraining by either changing *ConnectedTFMnistActor->ForceRetrain* to true or deleting the model found under *Content/Scripts/model/mnistSimple*
 
