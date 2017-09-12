@@ -17,6 +17,10 @@ See [issues](https://github.com/getnamo/tensorflow-ue4-examples/issues) for curr
  4.	Browse to your extracted project folder
  5. Copy *Plugins* folder from your plugin download into your Project root.
  6. Launch and try different examples!
+ 
+### Note on cloning the repository
+
+If you're not using a release, but instead wish to clone the repository using git. Ensure you follow [TensorFlow-ue4 instructions on cloning](https://github.com/getnamo/tensorflow-ue4#note-on-git-clone).
 
 ## Examples
 
