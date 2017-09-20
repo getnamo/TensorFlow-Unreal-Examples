@@ -78,6 +78,7 @@ class ExampleAPI(TFPluginAPI):
 		#debug 
 		#print(jsonInput)
 		#print(stackedInput)
+		#print(jsonInput['actionScore'])
 		#print(len(self.inputQ))	#deque should grow until max size
 		#print(feed_dict)
 
