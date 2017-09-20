@@ -107,7 +107,7 @@ class MnistKeras(TFPluginAPI):
 		#let's train
 		batch_size = 128
 		num_classes = 10
-		epochs = 8
+		epochs = 10
 
 		# input image dimensions
 		img_rows, img_cols = 28, 28
