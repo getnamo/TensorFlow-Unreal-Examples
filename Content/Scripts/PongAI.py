@@ -2,6 +2,11 @@ import tensorflow as tf
 import unreal_engine as ue
 from TFPluginAPI import TFPluginAPI
 
+#utility imports
+from random import randint
+import collections
+import numpy as np
+
 class ExampleAPI(TFPluginAPI):
 
 	#expected optional api: setup your model for training
@@ -9,26 +14,53 @@ class ExampleAPI(TFPluginAPI):
 		self.sess = tf.InteractiveSession()
 		#self.graph = tf.get_default_graph()
 
-		self.paddleY = tf.placeholder(tf.float32)
-		self.ballXY = tf.placeholder(tf.float32)
-		self.score = tf.placeholder(tf.float32)
+		self.x = tf.placeholder(tf.float32)
+		
+		#self.paddleY = tf.placeholder(tf.float32)
+		#self.ballXY = tf.placeholder(tf.float32)
+		#self.score = tf.placeholder(tf.float32)
 
-		#operation
-		#self.c = self.a + self.b
+		#use collections to manage a x frames buffer of input
+		self.bufferLength = 200		
+		self.inputQ = collections.deque(maxlen=self.bufferLength)
+
+		#fill our deque so our input size is always the same
+		for x in range(0, 199):
+			self.inputQ.append([0.0,0.0,0.0,0.0])
+
 		pass
 		
 	#expected optional api: parse input object and return a result object, which will be converted to json for UE4
 	def onJsonInput(self, jsonInput):
 		
-		print(jsonInput)
+		#debug action
+		action = randint(0,2)
+
+		#layer our input using deque ~200 frames so we can train with temporal data 
+
+		#make a 1D stack of current input
+		ballPos = jsonInput['ballPosition']
+		stackedInput = [jsonInput['paddlePosition'], ballPos['x'], ballPos['y'],jsonInput['actionScore']]
+
+		#append our stacked input to our deque
+		self.inputQ.append(stackedInput)
+
+		#convert to list and set as x placeholder
+		feed_dict = {self.x: list(self.inputQ)}
+
+		#debug 
+		#print(jsonInput)
+		#print(stackedInput)
+		#print(len(self.inputQ))	#deque should grow until max size
+		#print(feed_dict)
 
 		#build our input from our json values
 		#feed_dict = {self.a: jsonInput['a'], self.b: jsonInput['b']}
 
 		#rawResult = self.sess.run(self.c,feed_dict)
 
-		#return do nothing action for now
-		return {'action':0}
+		#return random action
+		return {'action':action}
 
 	#custom function to determine which paddle we are
 	def setPaddleType(self, type):
