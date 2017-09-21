@@ -7,6 +7,8 @@ Example content project for [tensorflow-ue4](https://github.com/getnamo/tensorfl
 
 This repository also tracks changes required across all dependencies to make tensorflow work well with UE4.
 
+[Unreal forum thread](https://forums.unrealengine.com/community/work-in-progress/1357673-tensorflow)
+
 See [issues](https://github.com/getnamo/tensorflow-ue4-examples/issues) for current work and bug reports.
 
 ## Setup
