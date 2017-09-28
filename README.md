@@ -30,7 +30,7 @@ Map is found under [_Content/ExampleAssets/Maps/Mnist.umap_](https://github.com/
 
 [![mnist spawn samples](http://i.imgur.com/kvsLXvF.gif)](https://github.com/getnamo/tensorflow-ue4-examples/blob/master/Content/Scripts/mnistSpawnSamples.py)
 
-*Default mnist example script: mnistSpawnSamples.py*
+*Default mnist example script: [mnistSpawnSamples.py](https://github.com/getnamo/tensorflow-ue4-examples/blob/master/Content/Scripts/mnistSpawnSamples.py)*
 
 On map launch you'll have a basic example ready for play in editor. It should automatically train a really basic network when you hit play and then be ready to use in a few seconds. You can then press 'F' to send e.g. image of a 2 to predict. Press 0-9 numbers on your keyboard to change the input, press F again to send this updated input to classifier. Note that this is a very basic classifier and it will struggle to classify digits above 4 in the current setup.
 
