@@ -79,3 +79,5 @@ https://github.com/getnamo/socketio-client-ue4
 
 ## Presentation
 Example project used in the presentation https://drive.google.com/open?id=1GiHmYJeZI6BKUKYfel6xc0YFhMbjSOoCY17nl98dihA contained in https://github.com/getnamo/tensorflow-ue4-examples/tree/presentation branch
+
+Second presentation with 0.4 api: https://docs.google.com/presentation/d/1p5p6CjYYYfbflFpvr104U1GwrfArfl4Hkcb6N3SIBH8
