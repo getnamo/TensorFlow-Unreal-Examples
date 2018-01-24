@@ -76,6 +76,20 @@ https://github.com/getnamo/UnrealEnginePython
 
 https://github.com/getnamo/socketio-client-ue4
 
+## Troubleshooting
+
+There's a video made by github user _Berranzan_ that walks through setting up the tensorflow examples for 4.18 with GPU support.
+
+[![Neural networks on UE4](http://img.youtube.com/vi/ZciLnYV4jIo/0.jpg)](https://www.youtube.com/watch?v=ZciLnYV4jIo)
+
+For issues not covered in the readme see:
+
+https://github.com/getnamo/tensorflow-ue4-examples/issues
+
+and
+
+https://github.com/getnamo/tensorflow-ue4/issues
+
 
 ## Presentation
 Example project used in the presentation https://drive.google.com/open?id=1GiHmYJeZI6BKUKYfel6xc0YFhMbjSOoCY17nl98dihA contained in https://github.com/getnamo/tensorflow-ue4-examples/tree/presentation branch
