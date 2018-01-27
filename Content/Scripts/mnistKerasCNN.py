@@ -10,13 +10,13 @@ Gets to 99.25% test accuracy after 12 epochs
 import json
 from pathlib import Path
 
-from tensorflow.contrib import keras
-from tensorflow.contrib.keras.api.keras.datasets import mnist
-from tensorflow.contrib.keras.api.keras.models import Sequential, load_model
-from tensorflow.contrib.keras.api.keras.layers import Dense, Dropout, Flatten
-from tensorflow.contrib.keras.api.keras.layers import Conv2D, MaxPooling2D
-from tensorflow.contrib.keras.api.keras.models import model_from_json
-from tensorflow.contrib.keras import backend as K
+from tensorflow.python import keras
+from tensorflow.python.keras.datasets import mnist
+from tensorflow.python.keras.models import Sequential, load_model
+from tensorflow.python.keras.layers import Dense, Dropout, Flatten
+from tensorflow.python.keras.layers import Conv2D, MaxPooling2D
+from tensorflow.python.keras.models import model_from_json
+from tensorflow.python.keras import backend as K
 import numpy as np
 import operator
 import sys
