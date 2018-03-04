@@ -16,7 +16,10 @@ See [issues](https://github.com/getnamo/tensorflow-ue4-examples/issues) for curr
  3.	Download the matching tensorflow plugin release. Choose CPU download (or GPU version if hardware is supported). The matching plugin link is usually found under the [project release](https://github.com/getnamo/tensorflow-ue4-examples/releases).
  4.	Browse to your extracted project folder
  5. Copy *Plugins* folder from your plugin download into your Project root.
- 6. Launch and try different examples!
+ 6. Launch and wait for tensorflow dependencies to be installed.
+ ![](https://camo.githubusercontent.com/711214ab75ba5ddabb0629e1b24fa9913680a1a1/687474703a2f2f692e696d6775722e636f6d2f7338574475374d2e706e67)
+ 7. Once you see an output like this in your console window, relaunch your project.
+ 8. Everything should be ready to go, try different examples!
  
 ### Note on cloning the repository
 
