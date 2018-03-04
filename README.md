@@ -19,7 +19,7 @@ See [issues](https://github.com/getnamo/tensorflow-ue4-examples/issues) for curr
  6. Launch and wait for tensorflow dependencies to be installed. The tensorflow plugin will auto-resolve any dependencies listed in [Plugins/tensorflow-ue4/Content/Scripts/upymodule.json](https://github.com/getnamo/tensorflow-ue4/blob/master/Content/Scripts/upymodule.json) using pip. Note that this step may take a few minutes and depends on your internet connection speed.
  ![](https://camo.githubusercontent.com/711214ab75ba5ddabb0629e1b24fa9913680a1a1/687474703a2f2f692e696d6775722e636f6d2f7338574475374d2e706e67)
  7. Once you see an output like this in your console window, close and relaunch your project.
- 8. Everything should be ready to go, try different examples!
+ 8. Everything should be ready to go, try different examples from e.g. [Content/ExampleAssets/Maps](https://github.com/getnamo/tensorflow-ue4-examples/tree/master/Content/ExampleAssets/Maps)!
  
 ### Note on cloning the repository
 
