@@ -2,10 +2,14 @@
 Gets to 99.25% test accuracy after 12 epochs
 (there is still a lot of margin for parameter tuning).
 16 seconds per epoch on a GRID K520 GPU.
+
+Converted for ue4 use from
+https://github.com/fchollet/keras/blob/master/examples/mnist_cnn.py
+
+Opt is modified to round greyscale data to better match incoming data from ue4 inference
+batch sizes are larger to speed up training and more epochs are added to better classify 9's
 '''
 
-#converted for ue4 use from
-#https://github.com/fchollet/keras/blob/master/examples/mnist_cnn.py
 
 import json
 from pathlib import Path
@@ -123,7 +127,7 @@ class MnistKeras(TFPluginAPI):
 		batch_size = 400
 		self.batch_size = batch_size
 		num_classes = 10
-		epochs = 20
+		epochs = 14
 		round_values = True
 
 		# input image dimensions
