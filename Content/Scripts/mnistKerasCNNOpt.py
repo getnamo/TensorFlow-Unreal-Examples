@@ -25,6 +25,7 @@ import tensorflow as tf
 import unreal_engine as ue
 from TFPluginAPI import TFPluginAPI
 import random
+import simplejson
 
 class MnistKeras(TFPluginAPI):
 
@@ -43,11 +44,18 @@ class MnistKeras(TFPluginAPI):
 					ue.log('Early stop called!')
 				self.model.stop_training = True
 
-			#callback an example image from batch to see the actual data we're training on
-			if(batch % 25 == 0):
-				index = random.randint(0,self.outer.batch_size)*batch
-				self.outer.jsonPixels['pixels'] = self.outer.x_train[index].ravel().tolist()
-				self.outer.callEvent('PixelEvent', self.outer.jsonPixels, True)
+			else:
+				if(batch % 5 == 0):
+					#json convertible types are float64 not float32
+					logs['acc'] = np.float64(logs['acc'])
+					logs['loss'] = np.float64(logs['loss'])
+					self.outer.callEvent('TrainingUpdateEvent', logs, True)
+
+				#callback an example image from batch to see the actual data we're training on
+				if(batch % 50 == 0):
+					index = random.randint(0,self.outer.batch_size)*batch
+					self.outer.jsonPixels['pixels'] = self.outer.x_train[index].ravel().tolist()
+					self.outer.callEvent('PixelEvent', self.outer.jsonPixels, True)
 
 	#expected api: setup your model for training
 	def onSetup(self):
@@ -99,9 +107,9 @@ class MnistKeras(TFPluginAPI):
 
 	#expected api: no params forwarded for training? TBC
 	def onBeginTraining(self):
-		ue.log("starting mnist keras cnn 2 training")
+		ue.log("starting mnist keras cnn opt training")
 
-		model_file_name = "mnistKerasCNN"
+		model_file_name = "mnistKerasCNNOpt"
 		model_directory = ue.get_content_dir() + "/Scripts/"
 		model_sess_path =  model_directory + model_file_name + ".tfsess"
 		model_json_path = model_directory + model_file_name + ".json"
@@ -112,10 +120,10 @@ class MnistKeras(TFPluginAPI):
 		K.clear_session()
 
 		#let's train
-		batch_size = 200
+		batch_size = 400
 		self.batch_size = batch_size
 		num_classes = 10
-		epochs = 10
+		epochs = 20
 		round_values = True
 
 		# input image dimensions
