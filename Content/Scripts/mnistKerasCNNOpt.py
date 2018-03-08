@@ -29,7 +29,6 @@ import tensorflow as tf
 import unreal_engine as ue
 from TFPluginAPI import TFPluginAPI
 import random
-import simplejson
 
 class MnistKeras(TFPluginAPI):
 
