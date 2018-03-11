@@ -55,7 +55,7 @@ class MnistKeras(TFPluginAPI):
 					self.outer.callEvent('TrainingUpdateEvent', logs, True)
 
 				#callback an example image from batch to see the actual data we're training on
-				if(batch % 50 == 0):
+				if((batch*self.outer.batch_size) % 10000 == 0):
 					index = random.randint(0,self.outer.batch_size)*batch
 					self.outer.jsonPixels['pixels'] = self.outer.x_train[index].ravel().tolist()
 					self.outer.callEvent('PixelEvent', self.outer.jsonPixels, True)
@@ -123,10 +123,10 @@ class MnistKeras(TFPluginAPI):
 		K.clear_session()
 
 		#let's train
-		batch_size = 400
+		batch_size = 2000
 		self.batch_size = batch_size
 		num_classes = 10
-		epochs = 14
+		epochs = 20
 		round_values = True
 
 		# input image dimensions
