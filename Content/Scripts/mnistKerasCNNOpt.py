@@ -8,6 +8,8 @@ https://github.com/fchollet/keras/blob/master/examples/mnist_cnn.py
 
 Opt is modified to round greyscale data to better match incoming data from ue4 inference
 batch sizes are larger to speed up training and more epochs are added to better classify 9's
+
+This may lock up CPUs with the larger batch sizes, use original or reduce batch sizes in such cases.
 '''
 
 

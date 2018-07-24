@@ -20,6 +20,7 @@ from tensorflow.python.keras import backend as K
 import numpy as np
 import operator
 import sys
+import random
 
 import tensorflow as tf
 import unreal_engine as ue
@@ -41,6 +42,19 @@ class MnistKeras(TFPluginAPI):
 				if not (self.model.stop_training):
 					ue.log('Early stop called!')
 				self.model.stop_training = True
+
+			else:
+				if(batch % 5 == 0):
+					#json convertible types are float64 not float32
+					logs['acc'] = np.float64(logs['acc'])
+					logs['loss'] = np.float64(logs['loss'])
+					self.outer.callEvent('TrainingUpdateEvent', logs, True)
+
+				#callback an example image from batch to see the actual data we're training on
+				if((batch*self.outer.batch_size) % 10000 == 0):
+					index = random.randint(0,self.outer.batch_size)*batch
+					self.outer.jsonPixels['pixels'] = self.outer.x_train[index].ravel().tolist()
+					self.outer.callEvent('PixelEvent', self.outer.jsonPixels, True)
 
 	#expected api: setup your model for training
 	def onSetup(self):
@@ -107,7 +121,8 @@ class MnistKeras(TFPluginAPI):
 		#let's train
 		batch_size = 128
 		num_classes = 10
-		epochs = 8
+		epochs = 5 					 # lower default for simple testing
+		self.batch_size = batch_size # so that it can be obtained inside keras callbacks
 
 		# input image dimensions
 		img_rows, img_cols = 28, 28
@@ -131,6 +146,13 @@ class MnistKeras(TFPluginAPI):
 		ue.log('x_train shape:' + str(x_train.shape))
 		ue.log(str(x_train.shape[0]) + 'train samples')
 		ue.log(str(x_test.shape[0]) + 'test samples')
+
+		#pre-fill our callEvent data to optimize callbacks
+		jsonPixels = {}
+		size = {'x':28, 'y':28}
+		jsonPixels['size'] = size
+		self.jsonPixels = jsonPixels
+		self.x_train = x_train
 
 		# convert class vectors to binary class matrices
 		y_train = keras.utils.to_categorical(y_train, num_classes)

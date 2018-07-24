@@ -41,7 +41,7 @@ class MnistSimple(TFPluginAPI):
 		self.scripts_path = ue.get_content_dir() + "Scripts"
 		self.data_dir = self.scripts_path + '/dataset/mnist'
 
-		mnist = input_data.read_data_sets(self.data_dir, one_hot=True)
+		mnist = input_data.read_data_sets(self.data_dir)
 
 		# Create the model
 		x = tf.placeholder(tf.float32, [None, 784])
@@ -50,7 +50,7 @@ class MnistSimple(TFPluginAPI):
 		y = tf.matmul(x, W) + b
 
 		# Define loss and optimizer
-		y_ = tf.placeholder(tf.float32, [None, 10])
+		y_ = tf.placeholder(tf.int64, [None])
 
 		# The raw formulation of cross-entropy,
 		#
@@ -59,9 +59,9 @@ class MnistSimple(TFPluginAPI):
 		#
 		# can be numerically unstable.
 		#
-		# So here we use tf.nn.softmax_cross_entropy_with_logits on the raw
+		# So here we use tf.losses.sparse_softmax_cross_entropy on the raw
 		# outputs of 'y', and then average across the batch.
-		cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(labels=y_, logits=y))
+		cross_entropy = tf.losses.sparse_softmax_cross_entropy(labels=y_, logits=y)
 		train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
 
 		#update session for this thread
@@ -79,7 +79,7 @@ class MnistSimple(TFPluginAPI):
 					break 
 
 		# Test trained model
-		correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))
+		correct_prediction = tf.equal(tf.argmax(y, 1), y_)
 		accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 		finalAccuracy = self.sess.run(accuracy, feed_dict={x: mnist.test.images,
 										  y_: mnist.test.labels})
