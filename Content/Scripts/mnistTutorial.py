@@ -26,7 +26,7 @@ class MnistTutorial(TFPluginAPI):
 		x_raw = jsonInput['pixels']
 		x = np.reshape(x_raw, (1, 28, 28))
 
-		#run run the input through our network using stored model and graph
+		#run the input through our network using stored model and graph
 		with self.graph.as_default():
 			output = self.model.predict(x)
 
