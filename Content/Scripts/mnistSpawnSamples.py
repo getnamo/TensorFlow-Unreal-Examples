@@ -1,114 +1,128 @@
-#Converted to ue4 use from: https://www.tensorflow.org/get_started/mnist/beginners
-#mnist_softmax.py: https://github.com/tensorflow/tensorflow/blob/r1.1/tensorflow/examples/tutorials/mnist/mnist_softmax.py
-
-# Import data
-from tensorflow.examples.tutorials.mnist import input_data
+#converted for ue4 use from
+#https://github.com/tensorflow/docs/blob/master/site/en/tutorials/_index.ipynb
 
 import tensorflow as tf
 import unreal_engine as ue
 from TFPluginAPI import TFPluginAPI
 
-import operator
+#additional includes
+from tensorflow.python.keras import backend as K	#to ensure things work well with multi-threading
+import numpy as np   	#for reshaping input
+import operator      	#used for getting max prediction from 1x10 output array
+import random
 
-class MnistSimple(TFPluginAPI):
-	
-	#expected api: storedModel and session, json inputs
+class MnistTutorial(TFPluginAPI):
+
+	#keras stop callback
+	class StopCallback(tf.keras.callbacks.Callback):
+		def __init__(self, outer):
+			self.outer = outer
+
+		def on_train_begin(self, logs={}):
+			self.losses = []
+
+		def on_batch_end(self, batch, logs={}):
+			if(self.outer.shouldStop):
+				#notify on first call
+				if not (self.model.stop_training):
+					ue.log('Early stop called!')
+				self.model.stop_training = True
+
+			else:
+				if(batch % 5 == 0):
+					#json convertible types are float64 not float32
+					logs['acc'] = np.float64(logs['acc'])
+					logs['loss'] = np.float64(logs['loss'])
+					self.outer.callEvent('TrainingUpdateEvent', logs, True)
+
+				#callback an example image from batch to see the actual data we're training on
+				if((batch*self.outer.batch_size) % 100 == 0):
+					index = random.randint(0,self.outer.batch_size)*batch
+					self.outer.jsonPixels['pixels'] = self.outer.x_train[index].ravel().tolist()
+					self.outer.callEvent('PixelEvent', self.outer.jsonPixels, True)
+
+
+	#Called when TensorflowComponent sends Json input
 	def onJsonInput(self, jsonInput):
-		#expect an image struct in json format
-		pixelarray = jsonInput['pixels']
-		ue.log('image len: ' + str(len(pixelarray)))
+		#build the result object
+		result = {'prediction':-1}
 
-		#embedd the input image pixels as 'x'
-		feed_dict = {self.model['x']: [pixelarray]}
+		#If we try to predict before training is complete
+		if not hasattr(self, 'model'):
+			ue.log_warning("Warning! No 'model' found, prediction invalid. Did training complete?")
+			return result
 
-		result = self.sess.run(self.model['y'], feed_dict)
+		#prepare the input, reshape 784 array to a 1x28x28 array
+		x_raw = jsonInput['pixels']
+		x = np.reshape(x_raw, (1, 28, 28))
 
-		#convert our raw result to a prediction
-		index, value = max(enumerate(result[0]), key=operator.itemgetter(1))
+		#run the input through our network using stored model and graph
+		with self.graph.as_default():
+			output = self.model.predict(x)
 
-		ue.log('max: ' + str(value) + 'at: ' + str(index))
+			#convert output array to max value prediction index (0-10)
+			index, value = max(enumerate(output[0]), key=operator.itemgetter(1))
 
-		#set the prediction result in our json
-		jsonInput['prediction'] = index
+			#Optionally log the output so you can see the weights for each value and final prediction
+			ue.log('Output array: ' + str(output) + ',\nPrediction: ' + str(index))
 
-		return jsonInput
+			result['prediction'] = index
 
-	#expected api: no params forwarded for training? TBC
+		return result
+
+	#Called when TensorflowComponent signals begin training (default: begin play)
 	def onBeginTraining(self):
+		ue.log("starting MnistTutorial training")
 
-		ue.log("starting mnist simple training")
+		#training parameters
+		self.batch_size = 128
+		num_classes = 10
+		epochs = 3 		
 
-		self.scripts_path = ue.get_content_dir() + "Scripts"
-		self.data_dir = self.scripts_path + '/dataset/mnist'
+		#reset the session each time we get training calls
+		self.kerasCallback = self.StopCallback(self)
+		K.clear_session()
 
-		mnist = input_data.read_data_sets(self.data_dir, one_hot=True)
+		#load mnist data set
+		mnist = tf.keras.datasets.mnist
+		(x_train, y_train), (x_test, y_test) = mnist.load_data()
 
-		# Create the model
-		x = tf.placeholder(tf.float32, [None, 784])
-		W = tf.Variable(tf.zeros([784, 10]))
-		b = tf.Variable(tf.zeros([10]))
-		y = tf.matmul(x, W) + b
+		#rescale 0-255 -> 0-1.0
+		x_train, x_test = x_train / 255.0, x_test / 255.0
 
-		# Define loss and optimizer
-		y_ = tf.placeholder(tf.float32, [None, 10])
+		#define model
+		model = tf.keras.models.Sequential([
+			tf.keras.layers.Flatten(),
+			tf.keras.layers.Dense(512, activation=tf.nn.relu),
+			tf.keras.layers.Dropout(0.2),
+			tf.keras.layers.Dense(num_classes, activation=tf.nn.softmax)
+		])
 
-		# The raw formulation of cross-entropy,
-		#
-		#   tf.reduce_mean(-tf.reduce_sum(y_ * tf.log(tf.nn.softmax(y)),
-		#                                 reduction_indices=[1]))
-		#
-		# can be numerically unstable.
-		#
-		# So here we use tf.nn.softmax_cross_entropy_with_logits on the raw
-		# outputs of 'y', and then average across the batch.
-		cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(labels=y_, logits=y))
-		train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
+		model.compile(	optimizer='adam',
+						loss='sparse_categorical_crossentropy',
+						metrics=['accuracy'])
 
-		#update session for this thread
-		self.sess = tf.InteractiveSession()
-		tf.global_variables_initializer().run()
-
-		training_range = 1000
-
-		#pre-fill our callEvent data to minimize setting
+		#pre-fill our callEvent data to optimize callbacks
 		jsonPixels = {}
 		size = {'x':28, 'y':28}
 		jsonPixels['size'] = size
+		self.jsonPixels = jsonPixels
+		self.x_train = x_train
 
-		# Train
-		for i in range(training_range):
-			batch_xs, batch_ys = mnist.train.next_batch(100)
-			self.sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
-			if i % 100 == 0:
-				ue.log(i)
+		#this will do the actual training
+		model.fit(x_train, y_train,
+				  batch_size=self.batch_size,
+				  epochs=epochs,
+				  callbacks=[self.kerasCallback])
+		model.evaluate(x_test, y_test)
 
-				#send two pictures from our dataset per batch
-				jsonPixels['pixels'] = batch_xs[0].tolist()
-				self.callEvent('PixelEvent', jsonPixels, True)
-				jsonPixels['pixels'] = batch_xs[49].tolist()
-				self.callEvent('PixelEvent', jsonPixels, True)
+		ue.log("Training complete.")
 
-				if(self.shouldStop):
-					ue.log('early break')
-					break 
-
-		# Test trained model
-		correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))
-		accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-		finalAccuracy = self.sess.run(accuracy, feed_dict={x: mnist.test.images,
-										  y_: mnist.test.labels})
-		ue.log('final training accuracy: ' + str(finalAccuracy))
-		
-		#return trained model
-		self.model = {'x':x, 'y':y, 'W':W,'b':b}
-
-		#store optional summary information
-		self.summary = {'x':str(x), 'y':str(y), 'W':str(W), 'b':str(b)}
-
-		self.stored['summary'] = self.summary
-		return self.stored
+		#store our model and graph for prediction
+		self.graph = tf.get_default_graph()
+		self.model = model
 
 #required function to get our api
 def getApi():
 	#return CLASSNAME.getInstance()
-	return MnistSimple.getInstance()
+	return MnistTutorial.getInstance()
