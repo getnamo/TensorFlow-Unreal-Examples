@@ -9,6 +9,8 @@ This repository also tracks changes required across all dependencies to make ten
 
 See [issues](https://github.com/getnamo/tensorflow-ue4-examples/issues) for current work and bug reports.
 
+[Unreal Forum Thread](https://forums.unrealengine.com/community/work-in-progress/1357673-tensorflow)
+
 ## Setup
 
  1.	(GPU only) [Install CUDA and cudNN pre-requisites](https://www.tensorflow.org/install/install_windows) if you're using compatible GPUs (NVIDIA)
