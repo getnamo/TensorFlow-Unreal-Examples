@@ -87,6 +87,7 @@ https://github.com/getnamo/socketio-client-ue4
 ### Startup Error
 
 If you're seeing something like
+
 ![no plugins error](https://i.imgur.com/11hIUu6.png)
 
 You did not follow [step 3. in setup](https://github.com/getnamo/tensorflow-ue4-examples#setup). Each [release](https://github.com/getnamo/tensorflow-ue4-examples/releases) has a matching plugin that you need to download and drag into the project folder.
