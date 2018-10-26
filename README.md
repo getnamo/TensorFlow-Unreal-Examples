@@ -84,7 +84,7 @@ https://github.com/getnamo/socketio-client-ue4
 
 ## Troubleshooting
 
-### Invalid Type
+### Startup Error
 
 If you're seeing something like
 ![no plugins error](https://i.imgur.com/11hIUu6.png)
