@@ -84,6 +84,15 @@ https://github.com/getnamo/socketio-client-ue4
 
 ## Troubleshooting
 
+### Invalid Type
+
+If you're seeing something like
+![error](https://user-images.githubusercontent.com/33227900/47585259-730dab00-d965-11e8-997d-89a5898da138.png)
+
+You did not follow [step 3. in setup](https://github.com/getnamo/tensorflow-ue4-examples#setup). Each [release](https://github.com/getnamo/tensorflow-ue4-examples/releases) has a matching plugin that you need to download and drag into the project folder.
+
+
+### Video
 There's a video made by github user _Berranzan_ that walks through setting up the tensorflow examples for 4.18 with GPU support.
 
 [![Neural networks on UE4](http://img.youtube.com/vi/ZciLnYV4jIo/0.jpg)](https://www.youtube.com/watch?v=ZciLnYV4jIo)
