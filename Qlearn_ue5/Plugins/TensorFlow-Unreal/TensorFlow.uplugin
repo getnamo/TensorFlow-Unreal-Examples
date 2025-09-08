@@ -1,0 +1,44 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.6.0beta",
+	"FriendlyName": "TensorFlow",
+	"Description": "Unofficial TensorFlow plugin for UE4. Enables machine learning via python and blueprints.",
+	"Category": "Computing",
+	"CreatedBy": "Getnamo",
+	"CreatedByURL": "http://www.getnamo.com",
+	"DocsURL": "https://github.com/getnamo/tensorflow-ue4",
+	"MarketplaceURL": "",
+	"SupportURL": "https://github.com/getnamo/tensorflow-ue4/issues",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"Installed": false,
+	"Modules": [
+	{
+		"Name": "TensorFlow",
+		"Type": "Runtime",
+		"LoadingPhase": "Default",
+		"WhitelistPlatforms": [
+			"Win64"
+		]
+	},
+	{
+		"Name": "TFAudioCapture",
+		"Type": "Runtime",
+		"LoadingPhase": "Default",
+		"WhitelistPlatforms": [
+			"Win64"
+		]
+	}
+	],
+	"Plugins": [
+	{
+		"Name": "SocketIOClient",
+		"Enabled": true
+	},
+	{
+		"Name": "MachineLearningRemote",
+		"Enabled": true
+	}
+	]
+}

@@ -1,0 +1,3 @@
+[submodule "Server/ml-remote-server"]
+	path = Server/ml-remote-server
+	url = https://github.com/getnamo/ml-remote-server

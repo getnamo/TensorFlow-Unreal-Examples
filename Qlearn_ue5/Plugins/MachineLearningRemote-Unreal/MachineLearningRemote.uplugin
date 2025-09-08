@@ -1,0 +1,39 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "0.9.0",
+	"FriendlyName": "MachineLearningRemote",
+	"Description": "Machine Learning plugin for the Unreal Engine, encapsulating calls to remote servers running Tensorflow or Pytorch. Contains base API for many specialized plugin variants to be easily swappable without changing developer bind.",
+	"Category": "Computing",
+	"CreatedBy": "Getnamo",
+	"CreatedByURL": "http://www.getnamo.com",
+	"DocsURL": "https://github.com/getnamo/machine-learning-remote-ue4",
+	"MarketplaceURL": "",
+	"SupportURL": "https://github.com/getnamo/machine-learning-remote-ue4/issues",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "MachineLearningBase",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		},
+		{
+			"Name": "MachineLearningRemote",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		},
+		{
+			"Name": "MLProcess",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "SocketIOClient",
+			"Enabled": true
+		}
+	]
+}

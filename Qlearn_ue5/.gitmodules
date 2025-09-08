@@ -1,0 +1,12 @@
+[submodule "Plugins/tensorflow-ue4"]
+	path = Plugins/tensorflow-ue4
+	url = https://github.com/getnamo/tensorflow-ue4
+[submodule "Plugins/socketio-client-ue4"]
+	path = Plugins/socketio-client-ue4
+	url = https://github.com/getnamo/socketio-client-ue4
+[submodule "Plugins/UnrealEnginePython"]
+	path = Plugins/UnrealEnginePython
+	url = https://github.com/getnamo/UnrealEnginePython
+[submodule "ServerExamples/mnist-draw-server"]
+	path = ServerExamples/mnist-draw-server
+	url = https://github.com/getnamo/mnist-draw-server.git
